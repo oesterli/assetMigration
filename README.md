@@ -1,3 +1,3 @@
 # assetMigration
-Under construstion
-for devlopment purposes only
+# Under construction!  
+# For development purposes only
