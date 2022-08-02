@@ -19,7 +19,11 @@ sourceDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Deskt
 #sourceDir = r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\Datenbearbeitung\pdf-Erst-Rollfilmscans\Dateien-optimiert"
 
 ## TEST destination directory
+## Destination directory for data
 destDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\out"
+
+## Destination directory for resulting logs (.xlsx)
+destDirLog =r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\outLog"
 
 ## PROD destination directory
 #destDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\out"
@@ -151,7 +155,7 @@ dfname = os.path.splitext(os.path.basename(sourceDir))[0]
 outdfname = "Filename-Overview_" + dfname +"_"+ now + ".xlsx"
 
 ## Export dataframe to excel-file
-df.to_excel(os.path.join(destDir,outdfname), sheet_name=dfname)
+df.to_excel(os.path.join(destDirLog,outdfname), sheet_name=dfname)
 
 
 
