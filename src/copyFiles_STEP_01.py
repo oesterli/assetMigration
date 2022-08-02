@@ -10,11 +10,11 @@ import re
 ## TEST source directory
 sourceDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\in"
 
-## PROD source directory
+## PROD source director1
 ## STEP 1
-#sourceDir = r"M:\Appl\DATA\GD\landesgeologie\InfoGeol-Archiv\pdf-Dokumentenarchiv"
-## STEP 2
 #sourceDir = r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\Scans-Boss-Repro\_kontr-Daten"
+## STEP 2
+#sourceDir = r"M:\Appl\DATA\GD\landesgeologie\InfoGeol-Archiv\pdf-Dokumentenarchiv"
 ## STEP 3
 #sourceDir = r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\Datenbearbeitung\pdf-Erst-Rollfilmscans\Dateien-optimiert"
 
@@ -27,7 +27,7 @@ destDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop
 ## List of directories to investigate
 dirlist = [sourceDir]
 
-## List of files in destnation
+## List of files in destination
 destFiles = []
 
 ## Define column names of data frame for storing results
