@@ -3,9 +3,9 @@
 import pandas as pd
 import os
 import datetime
+import numpy as np
 import time
-
-
+import shutil
 
 ## Declare variables
 ## ==================
@@ -51,7 +51,7 @@ def loggerX(outdir, text):
         print(nowLog, text, sep=';', file=f)
 
     # print date, time and message to stdout
-    print(nowLog, text)
+    print(nowLog + ";" + text)
     print("-------------------")
     return
 
@@ -64,21 +64,46 @@ print("Input data files", inDirData)
 print("Output logs", outDirLog)
 print("Output data files", outData)
 
-
-
 ### TEST SECTION
 
 ## Read input control file
 df = pd.read_excel(inCtrlFile, sheet_name='_kontr-Daten')
+print("df: ", df.shape)
 
-print(df)
+## Select only records to be copied ("nichtKopieren" == blank)
+df2 = df.loc[df['nichtKopieren'].isnull()]
+print("df2: ", df2.shape)
 
-# testText = "Check!"
-#
-# loggerX(outDirLog,testText)
-#
-# #time.sleep(5)
-#
-# testText2 = "Check 222!"
-#
-# loggerX(outDirLog,testText2)
+## Generate toPath
+df2["toPath"] = outData + '\\' + df2["toFilename"]
+
+
+## Change pandas setting to desplay all rows and columns
+# with pd.option_context('display.max_rows', None,'display.max_columns', None,'display.precision', 3,):
+
+## Select only specified columns
+    # print(df2[['filename', "toFilename", "toPath", 'size_MB']].loc[:3])
+
+print(" ---- ")
+
+## Copy files
+inFiles = list((df2['inPath']))
+toFiles = list((df2['toPath']))
+i=0
+for f in inFiles[:3]:
+    shutil.copyfile(inFiles[i], toFiles[i])
+
+    # Looging
+    message = inFiles[i] + ";" + toFiles[i]
+    loggerX(outDirLog,message)
+
+    i+=1
+
+## Create output file name
+now = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+dfname = os.path.splitext(os.path.basename(outDirLog))[0]
+outdfname = "Log_" + now + ".xlsx"
+
+## Export dataframe to excel-file
+#df2.to_excel(os.path.join(outDirLog,outdfname), sheet_name=dfname)
+
