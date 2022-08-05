@@ -32,19 +32,27 @@ outData = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\data"
 ## define now time
 now = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 
+##Define log file name
+fname = "log" + "_" + now + ".txt"
+logFile = os.path.join(outDirLog, fname)
+with open(logFile, 'a') as f:
+    #print(nowLog, text, sep=';', file=f)
+    print("datatime;copyStatus;inPath;outPath;tofilename;sizeMB", sep=';', file=f)
+
+
 ## Define functions
 ## ==================
 
 ## Logger
-def loggerX(outdir, text):
+def loggerX(logFile, text):
     """
 
     :param outdir:
     :param text:
     :return:
     """
-    fname = "log" + "_" + now + ".txt"
-    logFile = os.path.join(outdir, fname)
+    #fname = "log" + "_" + now + ".txt"
+    #logFile = os.path.join(outdir, fname)
     nowLog = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 
     with open(logFile, 'a') as f:
@@ -77,25 +85,54 @@ print("df2: ", df2.shape)
 ## Generate toPath
 df2["toPath"] = outData + '\\' + df2["toFilename"]
 
-
 ## Change pandas setting to desplay all rows and columns
 # with pd.option_context('display.max_rows', None,'display.max_columns', None,'display.precision', 3,):
 
 ## Select only specified columns
     # print(df2[['filename', "toFilename", "toPath", 'size_MB']].loc[:3])
 
-print(" ---- ")
+## Define number of test data
+sampledata = 10
+
+## Convert df colums "inPath" and "outPath" into lists, in order you loop over ist
+inFilePath = list((df2['inPath'][:sampledata]))
+toFilePath = list((df2['toPath'][:sampledata]))
+inFiles = list((df2['toFilename'][:sampledata]))
+fileSize = list((df2['size_MB'][:sampledata]))
+
+## Loop over output data directory and check if  files already exist
+
+#print(os.listdir(outData))
+
+# for (destDirPath, destDirNames, destFilenames) in os.walk(outData):
+#     print("----- Destination directory --------")
+#     print('Dest_dirpath: ', destDirPath)
+#     print('Dest_filenames: ', destFilenames)
+#     print('Number of Dest_files: ', len(destFilenames))
 
 ## Copy files
-inFiles = list((df2['inPath']))
-toFiles = list((df2['toPath']))
-i=0
-for f in inFiles[:3]:
-    shutil.copyfile(inFiles[i], toFiles[i])
 
-    # Looging
-    message = inFiles[i] + ";" + toFiles[i]
-    loggerX(outDirLog,message)
+i=0
+for f in inFiles:
+
+    print("======")
+    print("i =", i)
+    print("f = ", f)
+    existfiles = os.listdir(outData)
+
+    print("Files exisiting in output dir: ", existfiles)
+
+    if f in existfiles:
+        print("==> NOT COPIED !!! " + f)
+        message = "NOT COPIED !!!" + ";" + inFilePath[i] + ";" + "NULL" + ";" + f + ";" + str(fileSize[i])
+        loggerX(logFile, message)
+
+    else:
+        shutil.copyfile(inFilePath[i], toFilePath[i])
+        print("==> COPIED !!! " + f)
+        message = "COPIED !!!" + ";" + inFilePath[i] + ";" + toFilePath[i] + ";" + f + ";" + str(fileSize[i])
+        loggerX(logFile, message)
+
 
     i+=1
 
