@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 
 ## import libraries
-
 import pandas as pd
 import os
 import datetime
-import numpy as np
-import time
 import shutil
 
 ## Declare variables
@@ -53,8 +50,7 @@ def loggerX(logFile, text):
     :param text:
     :return:
     """
-    #fname = "log" + "_" + now + ".txt"
-    #logFile = os.path.join(outdir, fname)
+
     nowLog = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 
     with open(logFile, 'a') as f:
@@ -74,67 +70,53 @@ print("Input data files", inDirData)
 print("Output logs", outDirLog)
 print("Output data files", outData)
 
-### TEST SECTION
 
+## ######## USER INPUT REQUIRED ########
 ## Read input control file
 df = pd.read_excel(inCtrlFile, sheet_name='_kontr-Daten')
-print("df: ", df.shape)
+print("Shape (rows, lines) of input control file: ", df.shape)
 
 ## Select only records to be copied ("nichtKopieren" == blank)
 df2 = df.loc[df['nichtKopieren'].isnull()]
-print("df2: ", df2.shape)
+print("Shape (rows, lines) of selected records to copy: ", df2.shape)
 
-## Generate toPath
+## Generate toPath and write it to dataframe df2
 df2["toPath"] = outData + '\\' + df2["toFilename"]
 
-## Change pandas setting to desplay all rows and columns
-# with pd.option_context('display.max_rows', None,'display.max_columns', None,'display.precision', 3,):
-
-## Select only specified columns
-    # print(df2[['filename', "toFilename", "toPath", 'size_MB']].loc[:3])
-
-## Define number of test data
+## ######## USER INPUT REQUIRED ########
+## Define number of test data (comment this line for productive use)
 sampledata = 10
 
-## Convert df colums "inPath" and "outPath" into lists, in order you loop over ist
+## Convert selected columns in df2 into lists, in order to loop over them
 inFilePath = list((df2['inPath'][:sampledata]))
 toFilePath = list((df2['toPath'][:sampledata]))
 inFiles = list((df2['toFilename'][:sampledata]))
 fileSize = list((df2['size_MB'][:sampledata]))
 
 ## Loop over output data directory and check if  files already exist
-
-#print(os.listdir(outData))
-
-# for (destDirPath, destDirNames, destFilenames) in os.walk(outData):
-#     print("----- Destination directory --------")
-#     print('Dest_dirpath: ', destDirPath)
-#     print('Dest_filenames: ', destFilenames)
-#     print('Number of Dest_files: ', len(destFilenames))
-
-## Copy files
-
 i=0
 for f in inFiles:
-
     print("======")
     print("i =", i)
     print("f = ", f)
-    existfiles = os.listdir(outData)
 
-    print("Files exisiting in output dir: ", existfiles)
+    ## Check filenames already existing in destination directory
+    existFiles = os.listdir(outData)
+    print("Files exisiting in output dir: ", existFiles)
 
-    if f in existfiles:
+    ## If file does already is in destination directory, do NOT copy it
+    if f in existFiles:
         print("==> NOT COPIED !!! " + f)
         message = "NOT COPIED !!!" + ";" + inFilePath[i] + ";" + "NULL" + ";" + f + ";" + str(fileSize[i])
         loggerX(logFile, message)
 
+    ## If file does NOT already is in destination directory, COPY it
     else:
+        ## Copy files
         shutil.copyfile(inFilePath[i], toFilePath[i])
         print("==> COPIED !!! " + f)
         message = "COPIED !!!" + ";" + inFilePath[i] + ";" + toFilePath[i] + ";" + f + ";" + str(fileSize[i])
         loggerX(logFile, message)
-
 
     i+=1
 
@@ -143,6 +125,4 @@ now = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 dfname = os.path.splitext(os.path.basename(outDirLog))[0]
 outdfname = "Log_" + now + ".xlsx"
 
-## Export dataframe to excel-file
-#df2.to_excel(os.path.join(outDirLog,outdfname), sheet_name=dfname)
 
