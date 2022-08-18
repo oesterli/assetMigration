@@ -48,8 +48,8 @@ sampleData = 10
 def loggerX(logfile, text):
     """
 
-    :param outdir:
-    :param text:
+    :param outdir: Directory where the logfile will be saved
+    :param text: Output message to be written to logfile
     :return:
     """
 
@@ -67,10 +67,10 @@ def loggerX(logfile, text):
 def fileCheckerCopy(inctrlfile, sampledata, outdata, logfile):
     """
 
-    :param inctrlfile:
-    :param sampledata:
-    :param outdata:
-    :param logfile:
+    :param inctrlfile: Contral file to be used
+    :param sampledata: Number of lines in control file to be treated
+    :param outdata: Path the files to be copied to
+    :param logfile: Logfile to write to
     :return:
     """
     ## ######## USER INPUT REQUIRED ########
@@ -91,7 +91,7 @@ def fileCheckerCopy(inctrlfile, sampledata, outdata, logfile):
     inFiles = list((df2['toFilename'][:sampledata]))
     fileSize = list((df2['size_MB'][:sampledata]))
 
-    ## Loop over output data directory and check if  files already exist
+    ## Loop over output data directory and check if files already exist
     i = 0
     for f in inFiles:
         print("======")
