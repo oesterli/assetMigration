@@ -35,5 +35,6 @@ with open(randomSamples, 'a') as f:
     for item in randomFiles:
         ## write each item on a new line
         f.write("%s\n" % item)
+        #f.write(item)
     print('Done')
 
