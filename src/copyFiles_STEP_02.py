@@ -10,23 +10,25 @@ import shutil
 ## ==================
 
 ## Define directories
-## Input control files
+## Input Directory control files
 inDirCtrl = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog"
 
 ## List of control files to use
-inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten_2022-06-28_15-12-42.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\02_pdf-Dokumentenarchiv_2022-06-28_16-08-33.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\03_Dateien-optimiert_2022-06-28_15-23-03.xlsx"]
+##inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten_2022-06-28_15-12-42.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\02_pdf-Dokumentenarchiv_2022-06-28_16-08-33.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\03_Dateien-optimiert_2022-06-28_15-23-03.xlsx"]
+inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_01_kontr-Daten_2022-06-28_15-12-42.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_02_pdf-Dokumentenarchiv_2022-06-28_16-08-33.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_03_Dateien-optimiert_2022-06-28_15-23-03.xlsx"]
+
 
 ## Input ctrl file
-inCtrlFile = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten_2022-06-28_15-12-42.xlsx"
+#inCtrlFile = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten_2022-06-28_15-12-42.xlsx"
 
 ## Input data files
-inDirData = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\data"
+#inDirData = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\data"
 
 ## Output logs
 outDirLog = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\log"
 
 ## Output data files
-outData = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\data"
+outDirData = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\data"
 
 ## define now time
 now = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
@@ -39,7 +41,7 @@ with open(logFile, 'a') as f:
     print("datatime;copyStatus;ctrlfile;inPath;outPath;tofilename;sizeMB", sep=';', file=f)
 
 ## Define number of test data (comment this line for productive use)
-sampleData = 10
+#sampleData = 10
 
 ## Define functions
 ## ==================
@@ -64,11 +66,10 @@ def loggerX(logfile, text):
     return
 
 ## Check exisiting files and copy files
-def fileCheckerCopy(inctrlfile, sampledata, outdata, logfile):
+def fileCheckerCopy(inctrlfile, outdata, logfile):
     """
 
     :param inctrlfile: Contral file to be used
-    :param sampledata: Number of lines in control file to be treated
     :param outdata: Path the files to be copied to
     :param logfile: Logfile to write to
     :return:
@@ -86,15 +87,20 @@ def fileCheckerCopy(inctrlfile, sampledata, outdata, logfile):
     df2["toPath"] = outdata + '\\' + df2["toFilename"]
 
     ## Convert selected columns in df2 into lists, in order to loop over them
-    inFilePath = list((df2['inPath'][:sampledata]))
-    toFilePath = list((df2['toPath'][:sampledata]))
-    inFiles = list((df2['toFilename'][:sampledata]))
-    fileSize = list((df2['size_MB'][:sampledata]))
+    # inFilePath = list((df2['inPath'][:sampledata]))
+    # toFilePath = list((df2['toPath'][:sampledata]))
+    # inFiles = list((df2['toFilename'][:sampledata]))
+    # fileSize = list((df2['size_MB'][:sampledata]))
+
+    inFilePath = list((df2['inPath']))
+    toFilePath = list((df2['toPath']))
+    inFiles = list((df2['toFilename']))
+    fileSize = list((df2['size_MB']))
 
     ## Loop over output data directory and check if files already exist
     i = 0
     for f in inFiles:
-        print("======")
+        print("=========================================================")
         print("control file: ", j)
         print("i =", i)
         print("f = ", f)
@@ -139,7 +145,7 @@ print("--- DIRECTORIES ---")
 print("Input control files", inDirCtrl)
 #print("Input data files", inDirData)
 print("Output logs", outDirLog)
-print("Output data files", outData)
+print("Output data files", outDirData)
 print("")
 
 print("--- CONTROL FILES ---")
@@ -147,7 +153,7 @@ print("--- CONTROL FILES ---")
 j=1
 for ctrlf in inCtrlFiles:
     print("Control file ", j, " :", ctrlf)
-    fileCheckerCopy(ctrlf, sampleData, outData, logFile)
+    fileCheckerCopy(ctrlf, outDirData, logFile)
     j+=1
 
 print(" ############### PROCESSING FINISHED ############### ")
