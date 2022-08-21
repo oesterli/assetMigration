@@ -6,7 +6,8 @@ import os
 import datetime
 
 ## Infogeol-Nos, which appear either in Migrationsobjekt 04 "…\Scans-Boss-Repro\_kontr-Daten"; Migrationsobjekt 02 "…\pdf-Dokumentenarchiv" and  Migrationsobjekt 03 "…\pdf-Erst-Rollfilmscans\Dateien-optimiert"
-infogeolTriples =r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\admin\infogeol_triples.txt"
+#infogeolTriples =r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\admin\infogeol_triples_2021.txt"
+infogeolTriples =r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\admin\infogeol_2021.txt"
 
 ## Read file with INfoGeol-Nos to select from
 f=open(infogeolTriples)

@@ -8,11 +8,11 @@ import re
 ## Declare variables
 
 ## TEST source directory
-sourceDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\in"
+#sourceDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\in"
 
 ## PROD source director1
 ## STEP 1
-#sourceDir = r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\Scans-Boss-Repro\_kontr-Daten"
+sourceDir = r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\Scans-Boss-Repro\_kontr-Daten"
 ## STEP 2
 #sourceDir = r"M:\Appl\DATA\GD\landesgeologie\InfoGeol-Archiv\pdf-Dokumentenarchiv"
 ## STEP 3
@@ -23,10 +23,13 @@ sourceDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Deskt
 destDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\out"
 
 ## Destination directory for resulting logs (.xlsx)
-destDirLog =r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\outLog"
+#destDirLog =r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\outLog"
 
 ## PROD destination directory
-#destDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\out"
+destDir = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\data"
+
+## Destination directory for resulting logs (.xlsx)
+destDirLog =r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\log"
 
 ## List of directories to investigate
 dirlist = [sourceDir]

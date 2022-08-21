@@ -137,7 +137,7 @@ print(" ====== Processing started ====== ")
 ## Display directories
 print("--- DIRECTORIES ---")
 print("Input control files", inDirCtrl)
-print("Input data files", inDirData)
+#print("Input data files", inDirData)
 print("Output logs", outDirLog)
 print("Output data files", outData)
 print("")
