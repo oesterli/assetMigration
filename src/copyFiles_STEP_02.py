@@ -14,8 +14,8 @@ import shutil
 inDirCtrl = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog"
 
 ## List of control files to use
-##inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten_2022-06-28_15-12-42.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\02_pdf-Dokumentenarchiv_2022-06-28_16-08-33.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\03_Dateien-optimiert_2022-06-28_15-23-03.xlsx"]
-inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_01_kontr-Daten_2022-06-28_15-12-42.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_02_pdf-Dokumentenarchiv_2022-06-28_16-08-33.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_03_Dateien-optimiert_2022-06-28_15-23-03.xlsx"]
+##inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\02_pdf-Dokumentenarchiv.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\03_Dateien-optimiert.xlsx"]
+inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_01_kontr-Daten.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_02_pdf-Dokumentenarchiv.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_03_Dateien-optimiert.xlsx"]
 
 
 ## Input ctrl file
@@ -38,7 +38,8 @@ fname = "log" + "_" + now + ".csv"
 logFile = os.path.join(outDirLog, fname)
 with open(logFile, 'a') as f:
     #print(nowLog, text, sep=';', file=f)
-    print("datatime;copyStatus;ctrlfile;inPath;outPath;tofilename;sizeMB", sep=';', file=f)
+    #print("datatime;copyStatus;ctrlfile;inPath;outPath;tofilename;sizeMB", sep=';', file=f)
+    print("datatime;copyStatus;ctrlfile;ctrlfilename;inPath;outPath;tofilename;sizeMB", sep=';', file=f)
 
 ## Define number of test data (comment this line for productive use)
 #sampleData = 10
@@ -86,12 +87,6 @@ def fileCheckerCopy(inctrlfile, outdata, logfile):
     ## Generate toPath and write it to dataframe df2
     df2["toPath"] = outdata + '\\' + df2["toFilename"]
 
-    ## Convert selected columns in df2 into lists, in order to loop over them
-    # inFilePath = list((df2['inPath'][:sampledata]))
-    # toFilePath = list((df2['toPath'][:sampledata]))
-    # inFiles = list((df2['toFilename'][:sampledata]))
-    # fileSize = list((df2['size_MB'][:sampledata]))
-
     inFilePath = list((df2['inPath']))
     toFilePath = list((df2['toPath']))
     inFiles = list((df2['toFilename']))
@@ -112,7 +107,8 @@ def fileCheckerCopy(inctrlfile, outdata, logfile):
         ## If file does already is in destination directory, do NOT copy it
         if f in existFiles:
             print("==> NOT COPIED !!! " + f)
-            message = "NOT COPIED !!!" + ";" + str(j) + ";" + inFilePath[i] + ";" + "NULL" + ";" + f + ";" + str(fileSize[i])
+            message = "NOT COPIED !!!" + ";" + str(j) + ";" + inctrlfile + ";" + inFilePath[i] + ";" + "NULL" + ";" + f + ";" + str(fileSize[i])
+            #message = "NOT COPIED !!!" + ";" + str(j) + ";" + inFilePath[i] + ";" + "NULL" + ";" + f + ";" + str(fileSize[i])
             loggerX(logfile, message)
 
         ## If file does NOT already is in destination directory, COPY it
@@ -121,7 +117,8 @@ def fileCheckerCopy(inctrlfile, outdata, logfile):
             #shutil.copyfile(inFilePath[i], toFilePath[i])
             shutil.copy2(inFilePath[i], toFilePath[i])
             print("==> COPIED !!! " + f)
-            message = "COPIED !!!" + ";" + str(j) + ";" + inFilePath[i] + ";" + toFilePath[i] + ";" + f + ";" + str(fileSize[i])
+            message = "COPIED !!!" + ";" + str(j) +  ";" + inctrlfile + ";" + inFilePath[i] + ";" + toFilePath[i] + ";" + f + ";" + str(fileSize[i])
+            #message = "COPIED !!!" + ";" + str(j) + ";" + inFilePath[i] + ";" + toFilePath[i] + ";" + f + ";" + str(fileSize[i])
             loggerX(logfile, message)
 
         i += 1

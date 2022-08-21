@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pandas as pd
 import numpy as np
 import os
@@ -7,7 +9,7 @@ import datetime
 infoGeolNums = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\admin\infogeol_2021.txt"
 
 ## List of control files to use
-inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten_2022-06-28_15-12-42.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\02_pdf-Dokumentenarchiv_2022-06-28_16-08-33.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\03_Dateien-optimiert_2022-06-28_15-23-03.xlsx"]
+inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\02_pdf-Dokumentenarchiv.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\03_Dateien-optimiert.xlsx"]
 
 ## Destination Log Directory = in directory for Ctrl files
 destDirLog = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog"
