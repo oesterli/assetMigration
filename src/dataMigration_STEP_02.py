@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
 
+#########################################################################
+## Data migration STEP 02
+## Based on STEP 01 do the following:
+## > Read ctrl-files for each source directory (output STEP 01)
+## > Select only rows which shall be copied ("nichtkopieren == blank")
+## > Check the content of the output directory
+## > Check of each file IF it already exists in the destination directory
+## > For each investiogated file write message to log file
+#########################################################################
+
 ## import libraries
 import pandas as pd
 import os
@@ -15,6 +25,8 @@ inDirCtrl = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog"
 
 ## List of control files to use
 ##inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\02_pdf-Dokumentenarchiv.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\03_Dateien-optimiert.xlsx"]
+
+## For TESTING
 inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_01_kontr-Daten.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_02_pdf-Dokumentenarchiv.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_03_Dateien-optimiert.xlsx"]
 
 
@@ -24,9 +36,9 @@ inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog
 ## Input data files
 #inDirData = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\data"
 
+## For TESTING
 ## Output logs
 outDirLog = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\log"
-
 ## Output data files
 outDirData = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\data"
 

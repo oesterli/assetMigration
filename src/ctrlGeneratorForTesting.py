@@ -32,8 +32,8 @@ print("Number of random samples: ", len(randomFiles))
 
 
 #randomFiles = list(map(int, randomFiles))
-#randomFiles = [10302,7145,23964,33265,18427,24557,30618,24488,32560,41497,16005,41018,38422]
-randomFiles = [10302,7145]
+randomFiles = [10302,7145,23964,33265,18427,24557,30618,24488,32560,41497,16005,41018,38422]
+#randomFiles = [10302,7145]
 
 
 def randomSampler(infiles, samples, randomfiles):
