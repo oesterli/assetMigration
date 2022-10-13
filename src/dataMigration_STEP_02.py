@@ -118,8 +118,8 @@ def fileCheckerCopy(inctrlfile, outdata, logfile):
 
         ## If file does already is in destination directory, do NOT copy it
         if f in existFiles:
-            print("==> NOT COPIED !!! " + f)
-            message = "NOT COPIED !!!" + ";" + str(j) + ";" + inctrlfile + ";" + inFilePath[i] + ";" + "NULL" + ";" + f + ";" + str(fileSize[i])
+            print("==> NOT COPIED !!! " + str(f))
+            message = "NOT COPIED !!!" + ";" + str(j) + ";" + inctrlfile + ";" + inFilePath[i] + ";" + "NULL" + ";" + str(f) + ";" + str(fileSize[i])
             #message = "NOT COPIED !!!" + ";" + str(j) + ";" + inFilePath[i] + ";" + "NULL" + ";" + f + ";" + str(fileSize[i])
             loggerX(logfile, message)
 
@@ -128,8 +128,8 @@ def fileCheckerCopy(inctrlfile, outdata, logfile):
             ## Copy files
             #shutil.copyfile(inFilePath[i], toFilePath[i])
             shutil.copy2(inFilePath[i], toFilePath[i])
-            print("==> COPIED !!! " + f)
-            message = "COPIED !!!" + ";" + str(j) +  ";" + inctrlfile + ";" + inFilePath[i] + ";" + toFilePath[i] + ";" + f + ";" + str(fileSize[i])
+            print("==> COPIED !!! " + str(f))
+            message = "COPIED !!!" + ";" + str(j) +  ";" + inctrlfile + ";" + inFilePath[i] + ";" + toFilePath[i] + ";" + str(f) + ";" + str(fileSize[i])
             #message = "COPIED !!!" + ";" + str(j) + ";" + inFilePath[i] + ";" + toFilePath[i] + ";" + f + ";" + str(fileSize[i])
             loggerX(logfile, message)
 
