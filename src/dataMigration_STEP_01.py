@@ -9,10 +9,13 @@ import re
 
 ## TEST source directory
 #sourceDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\in"
+sourceDir = r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\3D\NGM-Prod Jura3D\01 SteCergue LeSentier\QGIS\Jura3D_MA1_data"
 
 ## PROD source director1
 ## STEP 1
-sourceDir = r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\Scans-Boss-Repro\_kontr-Daten"
+#sourceDir = r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\Scans-Boss-Repro\_kontr-Daten"
+
+
 ## STEP 2
 #sourceDir = r"M:\Appl\DATA\GD\landesgeologie\InfoGeol-Archiv\pdf-Dokumentenarchiv"
 ## STEP 3
@@ -45,10 +48,7 @@ destColumnNames = ["destFilename", "destInPath", "destLeft","destRight","destExt
 df = pd.DataFrame(columns=columnNames)
 df_dest = pd.DataFrame(columns=destColumnNames)
 
-
 #def fNameSplitter():
-
-
 
 ## Print dirList with all directories to be investigated
 print("========= START =========")
