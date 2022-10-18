@@ -33,10 +33,10 @@ inDirCtrl = r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migrat
 ## ================================= For PRODUCTION =================================
 
 ## Run 1: ...\lg\...\Scans-Boss-Repro\_kontr-Daten
-inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migration\Filename-Overview__kontr-Daten_2022-06-28_15-12-42_bearbPFI-OK.xlsx"]
+#inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migration\Filename-Overview__kontr-Daten_2022-06-28_15-12-42_bearbPFI-OK.xlsx"]
 
 ## Run 2: ...\GD\...\pdf-Dokumentenarchiv
-#inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migration\Filename-Overview_pdf-Dokumentenarchiv_2022-06-28_16-08-33_bearbPFI-OK.xlsx"]
+inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migration\Filename-Overview_pdf-Dokumentenarchiv_2022-06-28_16-08-33_bearbPFI-OK.xlsx"]
 
 ## Run 3: ...\lg\...pdf-Erst-Rollfilmscans\Dateien-optimiert
 #inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migration\Filename-Overview_Dateien-optimiert_2022-06-28_15-23-03_bearbPFI-OK.xlsx"]
