@@ -7,7 +7,7 @@
 ## > Select only rows which shall be copied ("nichtkopieren == blank")
 ## > Check the content of the output directory
 ## > Check of each file IF it already exists in the destination directory
-## > For each investiogated file write message to log file
+## > For each investigated file write message to log file
 #########################################################################
 
 ## import libraries
@@ -21,13 +21,28 @@ import shutil
 
 ## Define directories
 ## Input Directory control files
-inDirCtrl = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog"
+#inDirCtrl = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog"
+inDirCtrl = r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migration"
 
 ## List of control files to use
 ##inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\02_pdf-Dokumentenarchiv.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\03_Dateien-optimiert.xlsx"]
 
 ## For TESTING
-inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_01_kontr-Daten.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_02_pdf-Dokumentenarchiv.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_03_Dateien-optimiert.xlsx"]
+#inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_01_kontr-Daten.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_02_pdf-Dokumentenarchiv.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\TEST_03_Dateien-optimiert.xlsx"]
+
+## ================================= For PRODUCTION =================================
+
+## Run 1: ...\lg\...\Scans-Boss-Repro\_kontr-Daten
+inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migration\Filename-Overview__kontr-Daten_2022-06-28_15-12-42_bearbPFI-OK.xlsx"]
+
+## Run 2: ...\GD\...\pdf-Dokumentenarchiv
+#inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migration\Filename-Overview_pdf-Dokumentenarchiv_2022-06-28_16-08-33_bearbPFI-OK.xlsx"]
+
+## Run 3: ...\lg\...pdf-Erst-Rollfilmscans\Dateien-optimiert
+#inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migration\Filename-Overview_Dateien-optimiert_2022-06-28_15-23-03_bearbPFI-OK.xlsx"]
+
+
+## ================================= ############## =================================
 
 
 ## Input ctrl file
@@ -38,9 +53,22 @@ inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog
 
 ## For TESTING
 ## Output logs
-outDirLog = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\log"
+#outDirLog = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\log"
+
 ## Output data files
-outDirData = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\data"
+#outDirData = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\data"
+
+## ================================= For PRODUCTION =================================
+
+## Output logs
+outDirLog = r"M:\Appl\DATA\GD\landesgeologie\lgAssets\logs"
+## Output data files
+outDirData = r"M:\Appl\DATA\GD\landesgeologie\lgAssets\assets"
+
+
+## ================================= ############## =================================
+
+
 
 ## define now time
 now = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
@@ -148,6 +176,7 @@ def fileCheckerCopy(inctrlfile, outdata, logfile):
 
 ## Start
 print(" ====== Processing started ====== ")
+print("START time: ", datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
 
 ## Display directories
 print("--- DIRECTORIES ---")
@@ -162,10 +191,14 @@ print("--- CONTROL FILES ---")
 j=1
 for ctrlf in inCtrlFiles:
     print("Control file ", j, " :", ctrlf)
+    print("Start run: ", j, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     fileCheckerCopy(ctrlf, outDirData, logFile)
+    print("End run: ", j, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     j+=1
 
+
 print(" ############### PROCESSING FINISHED ############### ")
+print("FINISH time: ", datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
 
 del inCtrlFiles
 
