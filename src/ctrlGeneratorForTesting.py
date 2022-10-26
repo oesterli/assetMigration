@@ -9,7 +9,8 @@ import datetime
 infoGeolNums = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\admin\infogeol_2021.txt"
 
 ## List of control files to use
-inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\02_pdf-Dokumentenarchiv.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\03_Dateien-optimiert.xlsx"]
+#inCtrlFiles = [r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\01_kontr-Daten.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\02_pdf-Dokumentenarchiv.xlsx", r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog\03_Dateien-optimiert.xlsx"]
+inCtrlFiles = []
 
 ## Destination Log Directory = in directory for Ctrl files
 destDirLog = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\in\ctrlLog"
@@ -39,8 +40,10 @@ randomFiles = [4,11,12,17,20,28,29,30,32,33,44,46,54,55,56,59,63,67,68,71,72,73,
 
 def randomSampler(infiles, samples, randomfiles):
     i = 1
-    print("Number of samples: ", samples)
+    #print("Number of samples: ", samples)
     print("Sample InfoGeol-Mumbers: ", randomfiles)
+    print("Number of files: ", len(randomfiles))
+
     for f in infiles:
         print(i)
         print(f)
@@ -59,9 +62,11 @@ def randomSampler(infiles, samples, randomfiles):
         #dfname = os.path.splitext(os.path.basename(sourceDir))[0]
         dfname = os.path.splitext(os.path.basename(f))[0]
 
-        outdfname = "TEST_" + dfname + ".xlsx"
+        #outdfname = "TEST_" + dfname + ".xlsx"
+        outdfname = "Nat-Rel_" + dfname + ".xlsx"
 
-        print("TEST-Ctrl-file-name: ", outdfname)
+        #print("TEST-Ctrl-file-name: ", outdfname)
+        print("Nat-Rel-Ctrl-file-name: ", outdfname)
 
         ## Export dataframe to excel-file
         df2.to_excel(os.path.join(destDirLog, outdfname))
