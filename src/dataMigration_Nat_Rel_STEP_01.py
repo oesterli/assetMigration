@@ -23,11 +23,13 @@ sourceDir = r"M:\Appl\DATA\GD\landesgeologie\lgAssets\assets"
 ## TEST destination directory
 ## Destination directory for data
 #destDir = r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\out"
-destDir = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\data"
+#destDir = r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\data"
+destDir = r"M:\Appl\DATA\GD\landesgeologie\lgAssets\assetsNatRel4Cloud"
 
 ## Destination directory for resulting logs (.xlsx)
 #destDirLog =r"\\adb.intra.admin.ch\UserHome$\SWISSTOPO-01\U80773132\config\Desktop\_transfer\outLog"
-destDirLog =r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\log"
+#destDirLog =r"M:\Appl\DATA\PROD\lg\_restricted\_TP5_TEST-Migration\out\log"
+destDirLog =r"M:\Appl\DATA\PROD\lg\01_PRODUKTION\DatMgmt\GeolAssets\Daten_Migration"
 
 
 ## PROD destination directory
@@ -61,32 +63,32 @@ i=1
 for (dirpath, dirnames, filenames) in os.walk(dirlist.pop()):
     print('--- Directory: ', i, ' ----')
     print('dirpath: ', dirpath)
-    print('dirname:', dirnames)
-    print('filenames: ', filenames)
+    #print('dirname:', dirnames)
+    #print('filenames: ', filenames)
     print('Number of files: ', len(filenames))
 
-    ## Get files in destination directory
-    for (destDirPath, destDirNames, destFilenames) in os.walk(destDir):
-        print("----- Destination directory --------")
-        print('Dest_dirpath: ', destDirPath)
-        print('Dest_filenames: ', destFilenames)
-        print('Number of Dest_files: ', len(destFilenames))
-
-        ## Split filename at the first non-digit character
-        for f in destFilenames:
-            dest_sep = re.search(r"\D", f)
-
-            ## If filename does not start with a digit skip file and continue to the next
-            if dest_sep.start() == 0:
-                print('NOK!!! Filename does NOT start with a digit!')
-                continue
-            ## If filename starts with digit go on
-            else:
-                destLeft = f[:dest_sep.start()]
-                destFiles.append(destLeft)
-                print('destLeft: ', destLeft)
-                print("destFiles: ", destFiles)
-                print("Unique destFiles: ",list(set(destFiles)))
+    # ## Get files in destination directory
+    # for (destDirPath, destDirNames, destFilenames) in os.walk(destDir):
+    #     print("----- Destination directory --------")
+    #     print('Dest_dirpath: ', destDirPath)
+    #     #print('Dest_filenames: ', destFilenames)
+    #     print('Number of Dest_files: ', len(destFilenames))
+    #
+    #     ## Split filename at the first non-digit character
+    #     for f in destFilenames:
+    #         dest_sep = re.search(r"\D", f)
+    #
+    #         ## If filename does not start with a digit skip file and continue to the next
+    #         if dest_sep.start() == 0:
+    #             print('NOK!!! Filename does NOT start with a digit!')
+    #             continue
+    #         ## If filename starts with digit go on
+    #         else:
+    #             destLeft = f[:dest_sep.start()]
+    #             destFiles.append(destLeft)
+    #             print('destLeft: ', destLeft)
+    #             #print("destFiles: ", destFiles)
+    #             #print("Unique destFiles: ",list(set(destFiles)))
 
     ## Loop over files in respective directory
     j=1
@@ -118,13 +120,13 @@ for (dirpath, dirnames, filenames) in os.walk(dirlist.pop()):
             ## Append filename parts to the output dataframe
             df = df.append({"filename":filename, "inPath":os.path.join(dirpath,filename), "left":left, "right":right, "ext":ext, "toFilename":"", "toPath":"", "size_MB": fileSize, "copy": ""}, ignore_index=True)
 
-            ## If filename is already in destination directory, continue, else copy it
-            df.loc[df["left"].isin(destFiles), "copy"] = "Do not copy"
-            if left in destFiles:
-                print("File is in destination directory")
-            else:
-                print("File is NOT in destination directory")
-                continue
+            # ## If filename is already in destination directory, continue, else copy it
+            # df.loc[df["left"].isin(destFiles), "copy"] = "Do not copy"
+            # if left in destFiles:
+            #     print("File is in destination directory")
+            # else:
+            #     print("File is NOT in destination directory")
+            #     continue
         j+=1
     i+=1
 
@@ -134,15 +136,17 @@ print("===============")
 df.sort_values('filename', ascending=True, inplace=True)
 
 ## Check for duplicates and assign cumcount to df
-df['duplicate'] = df.duplicated(subset=['left'], keep=False)
-df['dup_number'] = (df.groupby(['left']).cumcount()+1).apply(str).apply(lambda x: '{0:0>2}'.format(x))
+# df['duplicate'] = df.duplicated(subset=['left'], keep=False)
+# df['dup_number'] = (df.groupby(['left']).cumcount()+1).apply(str).apply(lambda x: '{0:0>2}'.format(x))
 
 ## Select duplicates and concatenate toFilename
-df.loc[df['duplicate'] == True, 'toFilename'] = df["left"] + "_" + df['dup_number'] + df['ext']
-df.loc[df['duplicate'] == False, 'toFilename'] = df["left"] + df['ext']
+# df.loc[df['duplicate'] == True, 'toFilename'] = df["left"] + "_" + df['dup_number'] + df['ext']
+# df.loc[df['duplicate'] == False, 'toFilename'] = df["left"] + df['ext']
+
+df["toFilename"] = df["filename"]
 
 ## Assign "COPY"-request to files which are not in destination directory
-df.loc[df['copy'] != "Do not copy", 'copy'] = "COPY!!!"
+# df.loc[df['copy'] != "Do not copy", 'copy'] = "COPY!!!"
 
 ## Generate toPath
 df["toPath"] = destDir + '\\' + df["toFilename"]
